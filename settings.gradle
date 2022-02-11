@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "AndroidPlayground"
-include ':app'
+include ':contextual-app-bar'
+include ':common-ui'
