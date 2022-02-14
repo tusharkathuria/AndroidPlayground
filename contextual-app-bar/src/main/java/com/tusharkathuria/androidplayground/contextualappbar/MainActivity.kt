@@ -22,21 +22,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val systemUiController = rememberSystemUiController()
-            val normalBarColor = MaterialTheme.colors.surface
-            val contextualBarColor = MaterialTheme.colors.onSurface
-            var isContextual by remember { mutableStateOf(false)}
-            val useDarkContent = MaterialTheme.colors.isLight.xor(isContextual)
-            val barColor = if(isContextual) {contextualBarColor} else {normalBarColor}
-            val contentColor = if(useDarkContent) { Color.Black } else { Color.White }
-
-            SideEffect {
-                systemUiController.setStatusBarColor(
-                    color = barColor,
-                    darkIcons = useDarkContent
-                )
-            }
             AndroidPlaygroundTheme {
+                val systemUiController = rememberSystemUiController()
+                var isContextual by remember { mutableStateOf(false)}
+                val isLight = AndroidPlaygroundTheme.colors.isLight
+                val statusBarColor = if(isContextual) {AndroidPlaygroundTheme.colors.contextualStatusBar} else {AndroidPlaygroundTheme.colors.statusBar}
+                val barColor = if(isContextual) {AndroidPlaygroundTheme.colors.contextualAppBarBackground} else {AndroidPlaygroundTheme.colors.appBarBackground}
+                val contentColor = if(isContextual) { AndroidPlaygroundTheme.colors.contextualAppBarContent } else { AndroidPlaygroundTheme.colors.appBarContent }
+
+                SideEffect {
+                    systemUiController.setStatusBarColor(
+                        color = statusBarColor,
+                        darkIcons = isLight.xor(isContextual)
+                    )
+                }
+
                 Scaffold(
                     topBar = {
                         Column {
