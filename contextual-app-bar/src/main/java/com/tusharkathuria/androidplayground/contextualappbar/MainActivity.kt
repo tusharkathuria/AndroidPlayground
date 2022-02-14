@@ -3,6 +3,8 @@ package com.tusharkathuria.androidplayground.contextualappbar
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,10 +14,10 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.tusharkathuria.androidplayground.commonui.theme.AndroidPlaygroundTheme
+import com.tusharkathuria.androidplayground.commonui.theme.ProjectTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,10 +27,20 @@ class MainActivity : ComponentActivity() {
             AndroidPlaygroundTheme {
                 val systemUiController = rememberSystemUiController()
                 var isContextual by remember { mutableStateOf(false)}
-                val isLight = AndroidPlaygroundTheme.colors.isLight
-                val statusBarColor = if(isContextual) {AndroidPlaygroundTheme.colors.contextualStatusBar} else {AndroidPlaygroundTheme.colors.statusBar}
-                val barColor = if(isContextual) {AndroidPlaygroundTheme.colors.contextualAppBarBackground} else {AndroidPlaygroundTheme.colors.appBarBackground}
-                val contentColor = if(isContextual) { AndroidPlaygroundTheme.colors.contextualAppBarContent } else { AndroidPlaygroundTheme.colors.appBarContent }
+                val transition = updateTransition(isContextual, label = "isContextual")
+                val isLight = ProjectTheme.colors.isLight
+
+                val statusBarColor by transition.animateColor(label = "statusBarContextual") { isContextualMode ->
+                    if (isContextualMode) ProjectTheme.colors.contextualStatusBar else ProjectTheme.colors.statusBar
+                }
+
+                val barColor by transition.animateColor(label = "actionBarContextual") { isContextualMode ->
+                    if (isContextualMode) ProjectTheme.colors.contextualAppBar else ProjectTheme.colors.appBar
+                }
+
+                val contentColor by transition.animateColor(label = "actionBarContentContextual") { isContextualMode ->
+                    if (isContextualMode) ProjectTheme.colors.contextualAppBarContent else ProjectTheme.colors.appBarContent
+                }
 
                 SideEffect {
                     systemUiController.setStatusBarColor(

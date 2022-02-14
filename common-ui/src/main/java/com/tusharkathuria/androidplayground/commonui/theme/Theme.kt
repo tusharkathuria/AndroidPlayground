@@ -38,7 +38,7 @@ private val LightColorPalette = AndroidPlaygroundColors(
     isLight = true
 )
 
-object AndroidPlaygroundTheme {
+object ProjectTheme {
     val colors: AndroidPlaygroundColors
         @Composable
         get() = LocalAndroidPlaygroundColors.current
@@ -58,7 +58,7 @@ class AndroidPlaygroundColors(
     contextualAppBarContent: Color,
     isLight: Boolean
 ) {
-    var appBarBackground by mutableStateOf(appBar)
+    var appBar by mutableStateOf(appBar)
         private set
 
     var materialColors by mutableStateOf(material)
@@ -67,7 +67,7 @@ class AndroidPlaygroundColors(
     var isLight by mutableStateOf(isLight)
             private set
 
-    var contextualAppBarBackground by mutableStateOf(contextualAppBar)
+    var contextualAppBar by mutableStateOf(contextualAppBar)
         private set
 
     var statusBar by mutableStateOf(statusBar)
@@ -83,10 +83,10 @@ class AndroidPlaygroundColors(
         private set
 
     fun update(other: AndroidPlaygroundColors) {
-        appBarBackground = other.appBarBackground
+        appBar = other.appBar
         materialColors = other.materialColors
         isLight = other.isLight
-        contextualAppBarBackground = other.contextualAppBarBackground
+        contextualAppBar = other.contextualAppBar
         statusBar = other.statusBar
         contextualStatusBar = other.contextualStatusBar
         appBarContent = other.appBarContent
@@ -94,10 +94,10 @@ class AndroidPlaygroundColors(
     }
 
     fun copy(): AndroidPlaygroundColors = AndroidPlaygroundColors(
-        appBar = appBarBackground,
+        appBar = appBar,
         material = materialColors,
         isLight = isLight,
-        contextualAppBar = contextualAppBarBackground,
+        contextualAppBar = contextualAppBar,
         statusBar = statusBar,
         contextualStatusBar = contextualStatusBar,
         appBarContent = appBarContent,
