@@ -106,6 +106,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Credits: https://stackoverflow.com/a/69914668
 private fun Modifier.bottomElevation(): Modifier = this.then(Modifier.drawWithContent {
     val paddingPx = 8.dp.toPx()
     clipRect(
