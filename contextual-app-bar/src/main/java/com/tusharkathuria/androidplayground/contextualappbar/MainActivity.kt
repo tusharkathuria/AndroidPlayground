@@ -5,19 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     val statusBarColor by transition.animateColor(label = "statusBarContextual") { isContextualMode ->
                         if (isContextualMode) ProjectTheme.colors.contextualStatusBar else ProjectTheme.colors.statusBar
                     }
-                    val barColor by transition.animateColor(label = "actionBarContextual") { isContextualMode ->
+                    val backgroundColor by transition.animateColor(label = "actionBarContextual") { isContextualMode ->
                         if (isContextualMode) ProjectTheme.colors.contextualAppBar else ProjectTheme.colors.appBar
                     }
                     val contentColor by transition.animateColor(label = "actionBarContentContextual") { isContextualMode ->
@@ -60,43 +60,44 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(
                         topBar = {
-                            Surface(shape = RectangleShape,
-                                color = statusBarColor,
-                                elevation = 4.dp,
-                                modifier = Modifier.bottomElevation()
-                            ) {
-                                TopAppBar(
-                                    backgroundColor = barColor,
-                                    title = { Text(
+                            TopAppBar(
+                                backgroundColor = backgroundColor,
+                                title = {
+                                    Text(
                                         text = "Title",
                                         style = MaterialTheme.typography.h6,
                                         color = contentColor
-                                    )},
-                                    navigationIcon = { IconButton(onClick = { isContextual = false }) {
+                                    )
+                                },
+                                navigationIcon = {
+                                    IconButton(onClick = {}) {
                                         Icon(
-                                            imageVector = if(isContextual) { Icons.Default.Close } else { Icons.Default.ArrowBack },
+                                            imageVector = Icons.Default.ArrowBack,
                                             contentDescription = "Back",
                                             tint = contentColor
-                                        )}
-                                    },
-                                    actions = {
-                                        if(isContextual) {
-                                            IconButton(onClick = { /*TODO*/ }) {
-                                                Icon(imageVector = Icons.Default.Share, contentDescription = "Share", tint = Color.White)
-                                            }
+                                        )
+                                    }
+                                },
+                                actions = {
+                                    if (isContextual) {
+                                        IconButton(onClick = {}) {
+                                            Icon(
+                                                imageVector = Icons.Default.Share,
+                                                contentDescription = "Share",
+                                                tint = Color.White
+                                            )
                                         }
-                                    },
-                                    modifier = Modifier.statusBarsPadding(),
-                                    elevation = 0.dp
-                                )
-                            }
+                                    }
+                                },
+                                modifier = Modifier.background(statusBarColor).statusBarsPadding().bottomElevation()
+                            )
                         },
                         modifier = Modifier.navigationBarsPadding()
                     ) {
                         Box(Modifier.fillMaxSize()) {
                             Button(
                                 onClick = { isContextual = !isContextual },
-                                modifier = Modifier.align(Alignment.Center)
+                                modifier = Modifier.padding(top = 16.dp).align(Alignment.TopCenter)
                             ) {
                                 Text(if (isContextual) "Switch to normal" else "Switch to contextual")
                             }

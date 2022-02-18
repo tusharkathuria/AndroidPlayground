@@ -9,12 +9,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = AndroidPlaygroundColors(
-    appBar = Color(0xFF242424),
+    appBar = GreyMedium,
     contextualAppBar = Color.White,
-    statusBar = Color(0xFF171717),
+    statusBar = GreyDark,
     contextualStatusBar = Color.White,
     appBarContent = Color.White,
-    contextualAppBarContent = Color(0xFF242424),
+    contextualAppBarContent = GreyMedium,
     material = darkColors(
         primary = Purple200,
         primaryVariant = Purple700,
@@ -25,10 +25,10 @@ private val DarkColorPalette = AndroidPlaygroundColors(
 
 private val LightColorPalette = AndroidPlaygroundColors(
     appBar = Color.White,
-    contextualAppBar = Color(0xFF242424),
+    contextualAppBar = GreyMedium,
     statusBar = Color.White,
-    contextualStatusBar = Color(0xFF171717),
-    appBarContent = Color(0xFF242424),
+    contextualStatusBar = GreyDark,
+    appBarContent = GreyMedium,
     contextualAppBarContent = Color.White,
     material = lightColors(
         primary = Purple500,
