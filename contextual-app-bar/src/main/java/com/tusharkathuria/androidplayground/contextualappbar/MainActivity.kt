@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -41,13 +44,14 @@ class MainActivity : ComponentActivity() {
                     var isContextual by remember { mutableStateOf(false) }
                     val isLight = ProjectTheme.colors.isLight
                     val transition = updateTransition(isContextual, label = "isContextual")
-                    val statusBarColor by transition.animateColor(label = "statusBarContextual") { isContextualMode ->
+                    val transitionSpec: @Composable Transition.Segment<Boolean>.() -> FiniteAnimationSpec<Color> = {tween(300)}
+                    val statusBarColor by transition.animateColor(label = "statusBarContextual", transitionSpec = transitionSpec) { isContextualMode ->
                         if (isContextualMode) ProjectTheme.colors.contextualStatusBar else ProjectTheme.colors.statusBar
                     }
-                    val backgroundColor by transition.animateColor(label = "actionBarContextual") { isContextualMode ->
+                    val backgroundColor by transition.animateColor(label = "actionBarContextual", transitionSpec = transitionSpec) { isContextualMode ->
                         if (isContextualMode) ProjectTheme.colors.contextualAppBar else ProjectTheme.colors.appBar
                     }
-                    val contentColor by transition.animateColor(label = "actionBarContentContextual") { isContextualMode ->
+                    val contentColor by transition.animateColor(label = "actionBarContentContextual", transitionSpec = transitionSpec) { isContextualMode ->
                         if (isContextualMode) ProjectTheme.colors.contextualAppBarContent else ProjectTheme.colors.appBarContent
                     }
 
