@@ -5,8 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.tusharkathuria.androidplayground.homenav.models.Destination
 import com.tusharkathuria.androidplayground.homenav.models.NavigationBarItem
+import com.tusharkathuria.androidplayground.homenav.R
 
 @Composable
 fun BottomNavigationBar(
@@ -37,7 +39,7 @@ fun RailNavigationBar(
         FloatingActionButton( onClick = { onAddClick() }) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Add"
+                contentDescription = stringResource(id = R.string.create_item)
             )
         }
     }) {

@@ -3,7 +3,7 @@ package com.tusharkathuria.androidplayground.homenav.models
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import java.util.*
+import androidx.compose.ui.res.stringResource
 
 class NavigationBarItem(
     val selected: Boolean,
@@ -30,11 +30,9 @@ class NavigationBarItem(
                             ) }
                     },
                     label = {
-                        Text(text = it.title.replaceFirstChar { char ->
-                            char.titlecase(Locale.getDefault())
-                        })
+                        Text(text = stringResource(id = it.titleResource))
                     },
-                    selected = currentDestination.path == it.path,
+                    selected = currentDestination == it,
                     onClick = {onNavigate(it)}
                 )
             }

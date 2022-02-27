@@ -10,6 +10,8 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.tusharkathuria.androidplayground.homenav.R
 import com.tusharkathuria.androidplayground.homenav.models.Destination
 
 @Composable
@@ -30,7 +32,7 @@ fun DestinationTopBar(
     } else {
         ChildDestinationTopBar(
             modifier,
-            destination.title,
+            stringResource(id = destination.titleResource),
             onNavigateUp
         )
     }
@@ -44,13 +46,14 @@ fun RootDestinationTopBar(
     showSnackbar: (message: String) -> Unit
 ) {
     TopAppBar(
-        title = { Text(destination.title) },
+        title = { Text(stringResource(id = destination.titleResource)) },
         actions = {
+            val message = stringResource(id = R.string.not_available_yet)
             if(destination != Destination.Feed) {
                 IconButton(onClick = {
-                    showSnackbar("Not available yet")
+                    showSnackbar(message)
                 }) {
-                    Icon(imageVector = Icons.Default.Info, contentDescription = "More info")
+                    Icon(imageVector = Icons.Default.Info, contentDescription = stringResource(id = R.string.more_info))
                 }
             }
         },
@@ -59,7 +62,7 @@ fun RootDestinationTopBar(
                 openDrawer()
             }) { Icon(
                 imageVector = Icons.Default.Menu,
-                contentDescription = "Open menu"
+                contentDescription = stringResource(id = R.string.open_menu)
             ) }
         },
         modifier = modifier
@@ -79,7 +82,7 @@ fun ChildDestinationTopBar(modifier: Modifier = Modifier, title: String, onNavig
             }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back"
+                    contentDescription = stringResource(id = R.string.back)
                 )
             }
         }

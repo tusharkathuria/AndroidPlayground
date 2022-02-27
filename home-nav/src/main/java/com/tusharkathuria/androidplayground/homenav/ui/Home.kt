@@ -15,10 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.tusharkathuria.androidplayground.homenav.R
 import com.tusharkathuria.androidplayground.homenav.models.Destination
 import kotlinx.coroutines.launch
 
@@ -57,9 +59,9 @@ fun Home(modifier: Modifier = Modifier) {
             )
         },
         floatingActionButton = {
-            if(currentDestination.path == Destination.Feed.path && !isLandscape)
+            if(currentDestination == Destination.Feed && !isLandscape)
                 FloatingActionButton(onClick = { navHostController.navigate(Destination.Creation.path) }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Create item")
+                    Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(id = R.string.create_item))
                 }
         },
         bottomBar = {

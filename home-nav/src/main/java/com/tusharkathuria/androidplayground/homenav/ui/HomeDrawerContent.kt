@@ -6,10 +6,12 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tusharkathuria.androidplayground.homenav.models.Destination
 import java.util.*
+import com.tusharkathuria.androidplayground.homenav.R
 
 @Composable
 fun ColumnScope.HomeDrawerContent(
@@ -32,18 +34,18 @@ fun ColumnScope.HomeDrawerContent(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     )
-    DrawerItem(label = Destination.Upgrade.title, modifier = Modifier.fillMaxWidth()) {
+    DrawerItem(label = stringResource(Destination.Upgrade.titleResource), modifier = Modifier.fillMaxWidth()) {
         onNavigationSelected(Destination.Upgrade)
     }
     Spacer(modifier = Modifier.height(8.dp))
-    DrawerItem(modifier = Modifier.fillMaxWidth(), label = Destination.Settings.title ) {
+    DrawerItem(modifier = Modifier.fillMaxWidth(), label = stringResource(Destination.Settings.titleResource)) {
         onNavigationSelected(Destination.Settings)
     }
 
     Spacer(modifier = Modifier.weight(1f))
     DrawerItem(
         modifier = Modifier.fillMaxWidth(),
-        label = "Logout"
+        label = stringResource(id = R.string.logout)
     ) {
         onLogout()
     }
