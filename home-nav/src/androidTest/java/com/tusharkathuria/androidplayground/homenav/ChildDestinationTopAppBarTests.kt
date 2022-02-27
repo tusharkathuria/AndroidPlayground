@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
-// Todo: Refernce string from strings.xml instead of hard coding
 @RunWith(AndroidJUnit4::class)
 class ChildDestinationTopBarTest {
     @get: Rule
@@ -27,7 +26,7 @@ class ChildDestinationTopBarTest {
 
     @Test
     fun titleDisplayed() {
-        val title = "Feed"
+        val title = stringResource(Destination.Feed.titleResource)
         composeTestRule.setContent {
             ChildDestinationTopBar(
                 onNavigateUp = {},
@@ -39,19 +38,19 @@ class ChildDestinationTopBarTest {
 
     @Test
     fun backIconDisplayed() {
-        val title = "Feed"
+        val title = stringResource(Destination.Feed.titleResource)
         composeTestRule.setContent {
             ChildDestinationTopBar(
                 onNavigateUp = {},
                 title = title
             )
         }
-        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription(stringResource(R.string.back)).assertIsDisplayed()
     }
 
     @Test
     fun backIconTriggersCallback() {
-        val title = "Feed"
+        val title = stringResource(Destination.Feed.titleResource)
         val onNavigateUp: () -> Unit = mock()
         composeTestRule.setContent {
             ChildDestinationTopBar(
@@ -59,7 +58,7 @@ class ChildDestinationTopBarTest {
                 title = title
             )
         }
-        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        composeTestRule.onNodeWithContentDescription(stringResource(R.string.back)).performClick()
         verify(onNavigateUp).invoke()
     }
 }
