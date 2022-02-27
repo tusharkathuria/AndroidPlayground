@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidPlayground"
 include ':contextual-app-bar'
 include ':common-ui'
+include ':home-nav'
