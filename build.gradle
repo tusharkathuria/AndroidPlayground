@@ -10,6 +10,9 @@ buildscript {
         navigation_compose_version = "2.4.0-beta02" // 2.5.0-alpha03 has bug when navigate to cur destination
         mockito_kotlin_version = "3.2.0"
         mockito_android_version = "3.12.4"
+        retrofit_version = "2.9.0"
+        okhttp_version = "4.7.2"
+        nav_version = "2.4.1"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

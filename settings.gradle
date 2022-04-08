@@ -16,3 +16,4 @@ rootProject.name = "AndroidPlayground"
 include ':contextual-app-bar'
 include ':common-ui'
 include ':home-nav'
+include ':github-explore'
