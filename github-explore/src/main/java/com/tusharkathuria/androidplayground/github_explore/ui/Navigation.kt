@@ -7,7 +7,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tusharkathuria.androidplayground.github_explore.data.remote.GithubApiService
+import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoListResponseMapper
+import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoResponseMapper
+import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepo
 import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoDetailViewModel
+import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoListViewModel
 
 @Composable
 fun Navigation() {
@@ -15,7 +20,18 @@ fun Navigation() {
 
     NavHost(navController = navController, startDestination = "repo_list") {
         composable("repo_list") {
+            val repoListViewModel: RepoListViewModel = viewModel(
+                factory = object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                        return RepoListViewModel(
+                            GithubRepo(GithubApiService.createGithubService(), RepoListResponseMapper(), RepoResponseMapper())
+                        ) as T
+                    }
+                }
+            )
+
             RepoListScreen(
+                repoListViewModel = repoListViewModel,
                 onRepoClick = {
                     navController.navigate("repo_detail/$it")
                 }
@@ -29,6 +45,7 @@ fun Navigation() {
                 factory = object : ViewModelProvider.Factory {
                     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                         return RepoDetailViewModel(
+                            GithubRepo(GithubApiService.createGithubService(), RepoListResponseMapper(), RepoResponseMapper()),
                             ownerName = ownerName,
                             repoName = name
                         ) as T

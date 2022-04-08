@@ -11,13 +11,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoListViewModel
 
 @Composable
-fun RepoListScreen(repoListViewModel: RepoListViewModel = viewModel(), onRepoClick: (String) -> Unit) {
+fun RepoListScreen(repoListViewModel: RepoListViewModel, onRepoClick: (String) -> Unit) {
     val uiState by repoListViewModel.uiState.collectAsState()
-    val repos = uiState.list.repos
+    val repos = uiState.uiGithubRepoList.list
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(repos.size) {
