@@ -21,12 +21,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "githubexplore"
-        ).build()
-
         setContent {
             AndroidPlaygroundTheme {
                 // A surface container using the 'background' color from the theme
@@ -34,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Navigation(db)
+                    Navigation()
                 }
             }
         }
