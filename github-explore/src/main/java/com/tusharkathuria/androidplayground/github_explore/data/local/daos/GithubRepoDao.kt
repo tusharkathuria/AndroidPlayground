@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tusharkathuria.androidplayground.github_explore.data.local.entities.GithubRepoEntity
-import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepo
 
 @Dao
 interface GithubRepoDao {

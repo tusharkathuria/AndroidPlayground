@@ -1,15 +1,12 @@
 package com.tusharkathuria.androidplayground.github_explore.app
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.tusharkathuria.androidplayground.github_explore.data.local.AppDatabase
 import com.tusharkathuria.androidplayground.github_explore.data.remote.GithubApiService
 import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoListResponseMapper
 import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoResponseMapper
-import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepo
-import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoListViewModel
+import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepoImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,5 +38,5 @@ class AppContainer(application: Application) {
         "githubexplore"
     ).build()
 
-    val githubRepo = GithubRepo(githubApiService, repoListResponseMapper, repoResponseMapper, db)
+    val githubRepo = GithubRepoImpl(githubApiService, repoListResponseMapper, repoResponseMapper, db)
 }

@@ -9,11 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tusharkathuria.androidplayground.github_explore.app.GithubExploreApp
-import com.tusharkathuria.androidplayground.github_explore.data.local.AppDatabase
-import com.tusharkathuria.androidplayground.github_explore.data.remote.GithubApiService
-import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoListResponseMapper
-import com.tusharkathuria.androidplayground.github_explore.data.remote.model.RepoResponseMapper
-import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepo
 import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoDetailViewModel
 import com.tusharkathuria.androidplayground.github_explore.ui.viewmodels.RepoListViewModel
 

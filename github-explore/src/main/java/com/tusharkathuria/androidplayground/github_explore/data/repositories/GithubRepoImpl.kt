@@ -8,14 +8,22 @@ import com.tusharkathuria.androidplayground.github_explore.data.remote.model.Net
 import com.tusharkathuria.androidplayground.github_explore.data.remote.model.NetRepoListData
 import com.tusharkathuria.androidplayground.github_explore.ui.models.UIGithubRepo
 import com.tusharkathuria.androidplayground.github_explore.ui.models.UIGithubRepoList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-class GithubRepo(
+interface GithubRepo {
+    suspend fun getTopRepos(query: String): UIGithubRepoList
+    suspend fun getRepo(ownerName: String, repoName: String): UIGithubRepo
+}
+
+class GithubRepoImpl(
     private val githubApiService: GithubApiService,
     private val repoListMapper: DataUIMapper<NetRepoListData, UIGithubRepoList>,
     private val repoMapper: DataUIMapper<NetRepoData, UIGithubRepo>,
     private val db: AppDatabase
-) {
-    suspend fun getTopRepos(query: String): UIGithubRepoList {
+): GithubRepo {
+
+    override suspend fun getTopRepos(query: String): UIGithubRepoList {
         val data = githubApiService.getTopRepos(
             query = query,
             page = 1,
@@ -25,7 +33,7 @@ class GithubRepo(
         return repoListMapper.mapToUI(data)
     }
 
-    suspend fun getRepo(ownerName: String, repoName: String): UIGithubRepo {
+    override suspend fun getRepo(ownerName: String, repoName: String): UIGithubRepo {
         val entity = db.githubRepoDao().getRepo("$ownerName/$repoName")
 
         if(entity != null) {

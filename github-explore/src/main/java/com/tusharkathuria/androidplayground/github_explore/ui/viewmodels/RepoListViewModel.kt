@@ -3,23 +3,21 @@ package com.tusharkathuria.androidplayground.github_explore.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepo
+import com.tusharkathuria.androidplayground.github_explore.data.repositories.GithubRepoImpl
 import com.tusharkathuria.androidplayground.github_explore.ui.state.RepoListUIState
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class RepoListViewModel(githubRepo: GithubRepo): ViewModel() {
+class RepoListViewModel(val githubRepo: GithubRepo): ViewModel() {
 
     val uiState = MutableStateFlow(RepoListUIState())
 
-    init {
+    fun refreshTopRepos() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                githubRepo.getTopRepos("android").also {
-                    withContext(Dispatchers.Main) {
-                        uiState.value = uiState.value.copy(uiGithubRepoList = it)
-                    }
+            uiState.value = uiState.value.copy(isLoading = true)
+            githubRepo.getTopRepos("android").also {
+                withContext(Dispatchers.Main) {
+                    uiState.value = uiState.value.copy(uiGithubRepoList = it, isLoading = false)
                 }
             }
         }

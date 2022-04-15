@@ -4,5 +4,6 @@ import com.tusharkathuria.androidplayground.github_explore.data.remote.model.Net
 import com.tusharkathuria.androidplayground.github_explore.ui.models.UIGithubRepoList
 
 data class RepoListUIState(
-    val uiGithubRepoList: UIGithubRepoList = UIGithubRepoList(emptyList())
+    val uiGithubRepoList: UIGithubRepoList = UIGithubRepoList(emptyList()),
+    val isLoading: Boolean = true
 )
