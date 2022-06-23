@@ -1,6 +1,7 @@
 package com.tusharkathuria.androidplayground.dagger
 
 import android.util.Log
+import com.tusharkathuria.androidplayground.dagger.thirdparty.Wheels
 import javax.inject.Inject
 
 class Car @Inject constructor(wheels: Wheels) {
