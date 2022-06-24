@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class Remote @Inject constructor() {
     fun setListener(car: Car) {
-        Log.d("Remote", "Car connected..!")
+        Log.d("Car", "Car connected..!")
     }
 }

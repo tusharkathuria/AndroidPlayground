@@ -4,6 +4,6 @@ import android.util.Log
 
 class Tires {
     fun inflate() {
-        Log.d("Tires", "Inflating")
+        Log.d("Car", "Inflating")
     }
 }
