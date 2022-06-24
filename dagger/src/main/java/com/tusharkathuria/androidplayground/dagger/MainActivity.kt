@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DaggerCarComponent.builder().dieselEngineModule(DieselEngineModule(100)).build().inject(this)
+        DaggerCarComponent.builder().horsePower(150).engineCapacity(1400).build().inject(this)
         car.drive()
     }
 }
