@@ -4,7 +4,7 @@ import android.util.Log
 import com.tusharkathuria.androidplayground.dagger.thirdparty.Wheels
 import javax.inject.Inject
 
-class Car @Inject constructor(wheels: Wheels) {
+class Car @Inject constructor(val driver: Driver, wheels: Wheels) {
     @Inject
     lateinit var engine: Engine
 
@@ -14,7 +14,7 @@ class Car @Inject constructor(wheels: Wheels) {
 
     fun drive() {
         engine.start()
-        Log.d(TAG, "driving..")
+        Log.d(TAG, "$driver driving $this")
     }
 
     @Inject
