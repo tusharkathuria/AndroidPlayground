@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-abstract class DieselEngineModule {
-    @Binds
-    abstract fun provideEngine(dieselEngine: DieselEngine): Engine
+class DieselEngineModule(val horsePower: Int) {
+    @Provides
+    fun provideEngine(): Engine = DieselEngine(horsePower)
 }
