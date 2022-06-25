@@ -1,4 +1,4 @@
-package com.tusharkathuria.androidplayground.dagger
+package com.tusharkathuria.androidplayground.dagger.di
 
 import com.tusharkathuria.androidplayground.dagger.thirdparty.Rims
 import com.tusharkathuria.androidplayground.dagger.thirdparty.Tires

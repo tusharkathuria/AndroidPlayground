@@ -1,4 +1,4 @@
 package com.tusharkathuria.androidplayground.dagger.thirdparty
 
-class Rims {
-}
+// We don't own so can't use inject
+class Rims
