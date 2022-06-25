@@ -17,10 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         (application as DaggerApp)
             .appComponent
-            .activityComponentBuilder()
-            .horsePower(120)
-            .engineCapacity(1500)
-            .build()
+            .activityComponentFactory()
+            .create(120, 1500)
             .inject(this)
 
         car1.drive()

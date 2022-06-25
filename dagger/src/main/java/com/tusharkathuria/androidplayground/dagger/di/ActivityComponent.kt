@@ -14,14 +14,12 @@ interface ActivityComponent {
 
     fun inject(activity: MainActivity)
 
-    @Subcomponent.Builder
-    interface Builder {
-        @BindsInstance
-        fun horsePower(@Named("horse power") horsePower: Int): Builder
-
-        @BindsInstance
-        fun engineCapacity(@Named("engine capacity") engineCapacity: Int): Builder
-
-        fun build(): ActivityComponent
+    // Factory is sometimes better than builder as it provides compile time check that all required params are passed
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance @Named("horse power") horsePower: Int,
+            @BindsInstance @Named("engine capacity") engineCapacity: Int
+        ): ActivityComponent
     }
 }

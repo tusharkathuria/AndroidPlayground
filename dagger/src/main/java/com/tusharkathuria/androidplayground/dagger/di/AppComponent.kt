@@ -7,7 +7,12 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [DriverModule::class])
-public interface AppComponent {
+interface AppComponent {
 //    fun getDriver(): Driver // Subcomponent can access driver without needing to be exposed
-    fun activityComponentBuilder(): ActivityComponent.Builder
+    fun activityComponentFactory(): ActivityComponent.Factory
+
+    @Component.Factory
+    interface Factory {
+        fun create(driverModule: DriverModule): AppComponent
+    }
 }
