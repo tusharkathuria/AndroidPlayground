@@ -3,7 +3,7 @@ package com.tusharkathuria.androidplayground.dagger
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tusharkathuria.androidplayground.dagger.car.Car
-import com.tusharkathuria.androidplayground.dagger.di.DaggerActivityComponent
+import com.tusharkathuria.androidplayground.dagger.di.DieselEngineModule
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +16,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DaggerActivityComponent.builder()
-            .horsePower(120)
-            .engineCapacity(1500)
-            .appComponent((application as DaggerApp).appComponent)
-            .build()
+        (application as DaggerApp)
+            .appComponent
+            .activityComponent(DieselEngineModule(120))
             .inject(this)
 
         car1.drive()

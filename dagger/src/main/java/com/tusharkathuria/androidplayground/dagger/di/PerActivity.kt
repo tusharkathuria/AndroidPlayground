@@ -9,3 +9,6 @@ import javax.inject.Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 annotation class PerActivity()
+
+// All scope annotations by default behave same as Singleton annotation.
+// They tell dagger to reuse object in same component

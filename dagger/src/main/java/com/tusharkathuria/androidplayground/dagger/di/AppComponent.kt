@@ -8,5 +8,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [DriverModule::class])
 public interface AppComponent {
-    fun getDriver(): Driver
+//    fun getDriver(): Driver // Subcomponent can access driver without needing to be exposed
+    fun activityComponent(dieselEngineModule: DieselEngineModule): ActivityComponent
 }
