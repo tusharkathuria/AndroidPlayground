@@ -1,0 +1,1 @@
+This is a playground module to explore MVVM architecture, Jetpack Compose and manual Dependency Injection by showing a screen that lists github repositories and navigates to repo detail screen on click
