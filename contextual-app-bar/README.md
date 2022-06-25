@@ -1,0 +1,1 @@
+This is a playground module to explore contextual action bar in Jetpack Compose. Read more about this in the [blogpost](https://betterprogramming.pub/building-contextual-mode-of-top-app-bar-in-jetpack-compose-aecdfcfd3fef)
