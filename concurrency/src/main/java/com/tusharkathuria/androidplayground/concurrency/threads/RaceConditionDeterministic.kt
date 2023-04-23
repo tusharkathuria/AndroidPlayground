@@ -4,12 +4,12 @@ import android.util.Log
 import com.tusharkathuria.androidplayground.concurrency.APP_TAG
 import com.tusharkathuria.androidplayground.concurrency.IDefaultExecutor
 
-class ThreadsRaceConditionDeterministic: IDefaultExecutor {
+class RaceConditionDeterministic: IDefaultExecutor {
     private var sharedResource = 0;
     private val sharedResourceLock = Any()
 
     /**
-     * Fix issues faced in [ThreadsRaceConditionNonDeterministic] using [synchronized]
+     * Fix issues faced in [RaceConditionNonDeterministic] using [synchronized]
      */
     override fun execute() {
         val thread1 = Thread {

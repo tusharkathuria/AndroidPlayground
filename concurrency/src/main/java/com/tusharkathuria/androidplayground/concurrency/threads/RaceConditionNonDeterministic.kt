@@ -4,7 +4,7 @@ import android.util.Log
 import com.tusharkathuria.androidplayground.concurrency.APP_TAG
 import com.tusharkathuria.androidplayground.concurrency.IDefaultExecutor
 
-class ThreadsRaceConditionNonDeterministic: IDefaultExecutor {
+class RaceConditionNonDeterministic: IDefaultExecutor {
     private var sharedResource = 0;
 
     /**

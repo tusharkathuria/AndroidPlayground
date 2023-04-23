@@ -1,7 +1,11 @@
 package com.tusharkathuria.androidplayground.concurrency
 
 enum class PlaygroundType {
-    ThreadsRaceConditionNonDeterministic,
-    ThreadsRaceConditionDeterministic,
-    ThreadsProducerWorkerConsumerWorker
+    RaceConditionNonDeterministic,
+    RaceConditionDeterministic,
+    ProducerWorkerConsumerWorker,
+    AndroidTextChangeProcessingUsingPipe,
+    ProducerConsumerBlockingQueue,
+    AndroidOnClickLongTask,
+    ConsumeAndQuitThread
 }
