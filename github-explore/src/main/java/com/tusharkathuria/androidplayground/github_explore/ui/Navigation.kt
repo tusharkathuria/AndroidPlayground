@@ -23,7 +23,7 @@ fun Navigation() {
         composable("repo_list") {
             val repoListViewModel: RepoListViewModel = viewModel(
                 factory = object : ViewModelProvider.Factory {
-                    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
                         return RepoListViewModel(githubRepository) as T
                     }
                 }
@@ -42,7 +42,7 @@ fun Navigation() {
             val name = it.arguments?.getString("name") ?: ""
             val repoDetailViewModel: RepoDetailViewModel = viewModel(
                 factory = object : ViewModelProvider.Factory {
-                    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
                         return RepoDetailViewModel(
                             githubRepository,
                             ownerName = ownerName,

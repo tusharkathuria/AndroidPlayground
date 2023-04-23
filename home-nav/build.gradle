@@ -47,6 +47,7 @@ android {
             exclude "META-INF/licenses/ASM"
         }
     }
+    namespace 'com.tusharkathuria.androidplayground.homenav'
 }
 
 dependencies {
