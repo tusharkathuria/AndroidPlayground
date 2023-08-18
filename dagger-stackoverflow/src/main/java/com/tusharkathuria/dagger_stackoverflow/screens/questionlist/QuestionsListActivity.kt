@@ -24,34 +24,17 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionsListActivity : AppCompatActivity() {
+class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
-    private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var questionsAdapter: QuestionsAdapter
     private lateinit var stackoverflowApi: StackoverflowApi
-
     private var isDataLoaded = false
+    private lateinit var questionListUI: QuestionListUI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_questions_list)
-
-        // init pull-down-to-refresh
-        swipeRefresh = findViewById(R.id.swipeRefresh)
-        swipeRefresh.setOnRefreshListener {
-            fetchQuestions()
-        }
-
-        // init recycler view
-        recyclerView = findViewById(R.id.recycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        questionsAdapter = QuestionsAdapter{ clickedQuestion ->
-            QuestionDetailsActivity.start(this, clickedQuestion.id)
-        }
-        recyclerView.adapter = questionsAdapter
+        questionListUI = QuestionListUI(layoutInflater, null)
+        setContentView(questionListUI.rootView)
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -66,20 +49,22 @@ class QuestionsListActivity : AppCompatActivity() {
         if (!isDataLoaded) {
             fetchQuestions()
         }
+        questionListUI.registerListener(this)
     }
 
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
+        questionListUI.unregisterListener(this)
     }
 
     private fun fetchQuestions() {
         coroutineScope.launch {
-            showProgressIndication()
+            questionListUI.showProgressIndication()
             try {
                 val response = stackoverflowApi.lastActiveQuestions(20)
                 if (response.isSuccessful && response.body() != null) {
-                    questionsAdapter.bindData(response.body()!!.questions)
+                    questionListUI.bindQuestions(response.body()!!.questions)
                     isDataLoaded = true
                 } else {
                     onFetchFailed()
@@ -89,7 +74,7 @@ class QuestionsListActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-                hideProgressIndication()
+                questionListUI.hideProgressIndication()
             }
         }
     }
@@ -100,47 +85,11 @@ class QuestionsListActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 
-    private fun showProgressIndication() {
-        swipeRefresh.isRefreshing = true
+    override fun onRefreshUIEvent() {
+        fetchQuestions()
     }
 
-    private fun hideProgressIndication() {
-        if (swipeRefresh.isRefreshing) {
-            swipeRefresh.isRefreshing = false
-        }
-    }
-
-    class QuestionsAdapter(
-        private val onQuestionClickListener: (Question) -> Unit
-    ) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
-
-        private var questionsList: List<Question> = ArrayList(0)
-
-        inner class QuestionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val title: TextView = view.findViewById(R.id.txt_title)
-        }
-
-        fun bindData(questions: List<Question>) {
-            questionsList = ArrayList(questions)
-            notifyDataSetChanged()
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
-            val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.layout_question_list_item, parent, false)
-            return QuestionViewHolder(itemView)
-        }
-
-        override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
-            holder.title.text = questionsList[position].title
-            holder.itemView.setOnClickListener {
-                onQuestionClickListener.invoke(questionsList[position])
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return questionsList.size
-        }
-
+    override fun onQuestionClickedUIEvent(question: Question) {
+        QuestionDetailsActivity.start(this, question.id)
     }
 }
