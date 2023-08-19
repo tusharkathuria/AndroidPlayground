@@ -13,6 +13,7 @@ import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
+import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.ServerErrorDialogFragment
 import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.CancellationException
@@ -31,6 +32,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
     private var isDataLoaded = false
     private lateinit var questionListUI: QuestionListUI
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
             .build()
         stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
         fetchQuestionsUseCase = FetchQuestionsUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
     }
 
     override fun onStart() {
@@ -81,9 +84,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onRefreshUIEvent() {

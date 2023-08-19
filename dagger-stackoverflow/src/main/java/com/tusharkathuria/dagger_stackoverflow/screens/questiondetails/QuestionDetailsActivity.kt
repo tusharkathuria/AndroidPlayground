@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
+import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.ServerErrorDialogFragment
 import com.tusharkathuria.dagger_stackoverflow.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.CancellationException
@@ -29,6 +30,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
     private lateinit var questionId: String
     private lateinit var questionDetailUI: QuestionDetailUI
     private lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
         fetchQuestionDetailUseCase = FetchQuestionDetailUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
     }
 
     override fun onStart() {
@@ -75,9 +78,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     companion object {
