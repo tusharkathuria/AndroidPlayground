@@ -11,19 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
+import com.tusharkathuria.dagger_stackoverflow.screens.common.BaseUI
 
-class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?) {
+class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?): BaseUI<QuestionListUI.Listener>(layoutInflater, parent, R.layout.layout_questions_list) {
 
     private var swipeRefresh: SwipeRefreshLayout
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
-    private val listeners = HashSet<Listener>()
-    private val context: Context
-        get() = rootView.context
-    val rootView: View
 
     init {
-        rootView = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             listeners.forEach {
@@ -42,14 +38,6 @@ class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?) {
         recyclerView.adapter = questionsAdapter
     }
 
-    fun registerListener(listener: Listener) {
-        listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener) {
-        listeners.remove(listener)
-    }
-
     fun showProgressIndication() {
         swipeRefresh.isRefreshing = true
     }
@@ -63,8 +51,6 @@ class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?) {
     fun bindQuestions(questions: List<Question>) {
         questionsAdapter.bindData(questions)
     }
-
-    private fun <T: View?> findViewById(@IdRes id: Int) : T = rootView.findViewById(id)
 
     interface Listener {
         fun onRefreshUIEvent()
