@@ -28,21 +28,16 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
     private lateinit var stackoverflowApi: StackoverflowApi
     private lateinit var questionId: String
     private lateinit var questionDetailUI: QuestionDetailUI
+    private lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         questionDetailUI = QuestionDetailUI(layoutInflater, null)
         setContentView(questionDetailUI.rootView)
-
-        // init retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
-
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+
+        fetchQuestionDetailUseCase = FetchQuestionDetailUseCase()
     }
 
     override fun onStart() {
@@ -61,21 +56,21 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
         coroutineScope.launch {
             questionDetailUI.showProgressIndication()
             try {
-                val response = stackoverflowApi.questionDetails(questionId)
-                if (response.isSuccessful && response.body() != null) {
-                    val questionBody = response.body()!!.question.body
-                    questionDetailUI.setQuestionText(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY))
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                when (val result = fetchQuestionDetailUseCase.fetch(questionId)) {
+                    is FetchQuestionDetailUseCase.Result.Success -> {
+                        questionDetailUI.setQuestionText(
+                            Html.fromHtml(
+                                result.question.body,
+                                Html.FROM_HTML_MODE_LEGACY
+                            )
+                        )
+                    }
+
+                    is FetchQuestionDetailUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
                 questionDetailUI.hideProgressIndication()
             }
-
         }
     }
 

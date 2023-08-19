@@ -30,6 +30,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
     private lateinit var stackoverflowApi: StackoverflowApi
     private var isDataLoaded = false
     private lateinit var questionListUI: QuestionListUI
+    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
+        fetchQuestionsUseCase = FetchQuestionsUseCase()
     }
 
     override fun onStart() {
@@ -61,17 +63,16 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
     private fun fetchQuestions() {
         coroutineScope.launch {
             questionListUI.showProgressIndication()
+
             try {
-                val response = stackoverflowApi.lastActiveQuestions(20)
-                if (response.isSuccessful && response.body() != null) {
-                    questionListUI.bindQuestions(response.body()!!.questions)
-                    isDataLoaded = true
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
+                val result = fetchQuestionsUseCase.fetch()
+                when (result) {
+                    is FetchQuestionsUseCase.Result.Success -> {
+                        questionListUI.bindQuestions(result.questions)
+                        isDataLoaded = true
+                    }
+
+                    is FetchQuestionsUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
                 questionListUI.hideProgressIndication()
