@@ -1,8 +1,8 @@
 package com.tusharkathuria.dagger_stackoverflow.screens.questionlist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tusharkathuria.dagger_stackoverflow.Constants
+import androidx.appcompat.app.AppCompatActivity
+import com.tusharkathuria.dagger_stackoverflow.MyApplication
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
@@ -12,8 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
 
@@ -30,13 +28,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
         questionListUI = QuestionListUI(layoutInflater, null)
         setContentView(questionListUI.rootView)
 
-        // init retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
+        fetchQuestionsUseCase = FetchQuestionsUseCase((application as MyApplication).retrofit)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

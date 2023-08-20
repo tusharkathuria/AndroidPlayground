@@ -9,6 +9,7 @@ import android.text.Html
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.Constants
+import com.tusharkathuria.dagger_stackoverflow.MyApplication
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
@@ -41,7 +42,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionDetailUseCase = FetchQuestionDetailUseCase()
+        fetchQuestionDetailUseCase = FetchQuestionDetailUseCase((application as MyApplication).retrofit)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

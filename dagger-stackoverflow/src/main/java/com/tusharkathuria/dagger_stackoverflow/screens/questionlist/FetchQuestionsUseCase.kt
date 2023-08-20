@@ -1,24 +1,18 @@
 package com.tusharkathuria.dagger_stackoverflow.screens.questionlist
 
-import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class FetchQuestionsUseCase {
+class FetchQuestionsUseCase(retrofit: Retrofit) {
     sealed class Result {
         class Success(val questions: List<Question>): Result()
         object Failure : Result()
     }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
     private val stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetch(): Result = withContext(Dispatchers.IO) {
