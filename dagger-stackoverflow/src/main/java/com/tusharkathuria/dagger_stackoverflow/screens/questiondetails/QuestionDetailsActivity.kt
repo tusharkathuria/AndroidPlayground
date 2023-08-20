@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
+import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.ServerErrorDialogFragment
 import com.tusharkathuria.dagger_stackoverflow.screens.common.toolbar.MyToolbar
@@ -31,6 +32,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
     private lateinit var questionDetailUI: QuestionDetailUI
     private lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
 
         fetchQuestionDetailUseCase = FetchQuestionDetailUseCase()
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -91,6 +94,6 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
     }
 
     override fun onBackPressUIEvent() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 }
