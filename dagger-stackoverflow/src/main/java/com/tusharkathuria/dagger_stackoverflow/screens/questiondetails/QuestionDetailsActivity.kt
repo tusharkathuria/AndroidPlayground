@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.MyApplication
 import com.tusharkathuria.dagger_stackoverflow.R
+import com.tusharkathuria.dagger_stackoverflow.common.BaseActivity
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
+class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var stackoverflowApi: StackoverflowApi
@@ -42,7 +43,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionDetailUseCase = (application as MyApplication).fetchQuestionDetailUseCase
+        fetchQuestionDetailUseCase = compositionRoot.fetchQuestionDetailUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

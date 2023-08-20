@@ -3,6 +3,7 @@ package com.tusharkathuria.dagger_stackoverflow.screens.questionlist
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.tusharkathuria.dagger_stackoverflow.MyApplication
+import com.tusharkathuria.dagger_stackoverflow.common.BaseActivity
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
@@ -13,7 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
-class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
+class QuestionsListActivity : BaseActivity(), QuestionListUI.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var stackoverflowApi: StackoverflowApi
@@ -28,7 +29,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
         questionListUI = QuestionListUI(layoutInflater, null)
         setContentView(questionListUI.rootView)
 
-        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
+        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
