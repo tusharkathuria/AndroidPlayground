@@ -28,7 +28,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionListUI.Listener {
         questionListUI = QuestionListUI(layoutInflater, null)
         setContentView(questionListUI.rootView)
 
-        fetchQuestionsUseCase = FetchQuestionsUseCase((application as MyApplication).retrofit)
+        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }

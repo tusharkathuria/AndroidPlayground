@@ -7,13 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
-class FetchQuestionDetailUseCase(retrofit: Retrofit) {
+class FetchQuestionDetailUseCase(private val stackoverflowApi: StackoverflowApi) {
     sealed class Result {
         class Success(val question: QuestionWithBody): Result()
         object Failure : Result()
     }
-
-    private val stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetch(questionId: String): Result = withContext(Dispatchers.IO) {
         try {

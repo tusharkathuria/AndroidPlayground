@@ -42,7 +42,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailUI.Listener {
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionDetailUseCase = FetchQuestionDetailUseCase((application as MyApplication).retrofit)
+        fetchQuestionDetailUseCase = (application as MyApplication).fetchQuestionDetailUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
