@@ -15,11 +15,7 @@ class AppCompositionRoot {
             .build()
     }
 
-    private val stackoverflowApi by lazy {
+    val stackoverflowApi by lazy {
         retrofit.create(StackoverflowApi::class.java)
     }
-
-    // It is important to initialise these using getters so that different features get their own instances
-    val fetchQuestionDetailUseCase get()  = FetchQuestionDetailUseCase(stackoverflowApi)
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
 }

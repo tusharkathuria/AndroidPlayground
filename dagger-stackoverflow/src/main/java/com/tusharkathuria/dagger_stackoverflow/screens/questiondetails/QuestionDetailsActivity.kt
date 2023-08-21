@@ -45,7 +45,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
 
         fetchQuestionDetailUseCase = compositionRoot.fetchQuestionDetailUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {

@@ -6,5 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tusharkathuria.dagger_stackoverflow.MyApplication
 
 open class BaseActivity: AppCompatActivity() {
-    protected val compositionRoot get() = (application as MyApplication).appCompositionRoot
+    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
+    protected val compositionRoot get() = ActivityCompositionRoot(this, appCompositionRoot)
 }
