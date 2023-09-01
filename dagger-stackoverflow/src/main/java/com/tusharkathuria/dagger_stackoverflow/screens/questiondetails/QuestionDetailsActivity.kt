@@ -38,7 +38,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        questionDetailUI = QuestionDetailUI(layoutInflater, null)
+        questionDetailUI = compositionRoot.uiFactory.newQuestionDetailUI(null)
         setContentView(questionDetailUI.rootView)
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!

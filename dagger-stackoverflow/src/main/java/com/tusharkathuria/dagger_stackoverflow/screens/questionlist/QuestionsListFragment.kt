@@ -34,7 +34,7 @@ class QuestionsListFragment : BaseFragment(), QuestionListUI.Listener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        questionListUI = QuestionListUI(LayoutInflater.from(requireContext()), container)
+        questionListUI = compositionRoot.uiFactory.newQuestionListUI(container)
         return questionListUI.rootView
     }
 
