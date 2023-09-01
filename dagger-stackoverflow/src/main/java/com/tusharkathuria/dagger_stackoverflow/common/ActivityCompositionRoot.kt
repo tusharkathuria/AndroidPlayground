@@ -1,6 +1,7 @@
 package com.tusharkathuria.dagger_stackoverflow.common
 
 import android.app.Activity
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
@@ -10,6 +11,7 @@ import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.FetchQuestio
 class ActivityCompositionRoot(private val activity: AppCompatActivity, private val appCompositionRoot: AppCompositionRoot) {
     private val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
     private val fragmentManager get() = activity.supportFragmentManager
+    private val layoutInflater get() = LayoutInflater.from(activity)
     val screensNavigator by lazy { ScreensNavigator(activity) }
     val dialogsNavigator get() = DialogsNavigator(fragmentManager)
     val fetchQuestionDetailUseCase get()  = FetchQuestionDetailUseCase(stackoverflowApi)
