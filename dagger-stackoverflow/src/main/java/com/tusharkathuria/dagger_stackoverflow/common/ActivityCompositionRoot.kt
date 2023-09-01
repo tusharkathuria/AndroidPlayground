@@ -10,12 +10,8 @@ import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.FetchQues
 import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.FetchQuestionsUseCase
 
 class ActivityCompositionRoot(private val activity: AppCompatActivity, private val appCompositionRoot: AppCompositionRoot) {
-    private val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
-    private val fragmentManager get() = activity.supportFragmentManager
-    private val layoutInflater get() = LayoutInflater.from(activity)
-    val uiFactory get() = UIFactory(layoutInflater)
+    val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
+    val fragmentManager get() = activity.supportFragmentManager
+    val layoutInflater get() = LayoutInflater.from(activity)
     val screensNavigator by lazy { ScreensNavigator(activity) }
-    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
-    val fetchQuestionDetailUseCase get()  = FetchQuestionDetailUseCase(stackoverflowApi)
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
 }
