@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseFragment
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.Service
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
@@ -22,10 +23,10 @@ class QuestionsListFragment : BaseFragment(), QuestionListUI.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
     private lateinit var questionListUI: QuestionListUI
-    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
-    lateinit var uiFactory: UIFactory
+    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var uiFactory: UIFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)

@@ -12,6 +12,7 @@ import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.MyApplication
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseActivity
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.Service
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
@@ -32,10 +33,10 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
     private lateinit var questionDetailUI: QuestionDetailUI
-    lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
-    lateinit var uiFactory: UIFactory
+    @field:Service private lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var uiFactory: UIFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
