@@ -9,6 +9,7 @@ import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseFragment
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
+import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,20 +22,19 @@ class QuestionsListFragment : BaseFragment(), QuestionListUI.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
     private lateinit var questionListUI: QuestionListUI
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
+    lateinit var uiFactory: UIFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        questionListUI = compositionRoot.uiFactory.newQuestionListUI(container)
+        questionListUI = uiFactory.newQuestionListUI(container)
         return questionListUI.rootView
     }
 

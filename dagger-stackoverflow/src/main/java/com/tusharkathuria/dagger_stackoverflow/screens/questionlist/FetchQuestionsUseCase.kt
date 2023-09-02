@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 class FetchQuestionsUseCase(private val stackoverflowApi: StackoverflowApi) {
     sealed class Result {
-        class Success(val questions: List<Question>): Result()
+        data class Success(val questions: List<Question>): Result()
         object Failure : Result()
     }
 

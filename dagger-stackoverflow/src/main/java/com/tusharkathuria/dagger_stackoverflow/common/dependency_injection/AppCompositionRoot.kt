@@ -1,9 +1,7 @@
-package com.tusharkathuria.dagger_stackoverflow.common
+package com.tusharkathuria.dagger_stackoverflow.common.dependency_injection
 
 import com.tusharkathuria.dagger_stackoverflow.Constants
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
-import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.FetchQuestionDetailUseCase
-import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.FetchQuestionsUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

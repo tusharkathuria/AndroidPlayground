@@ -1,6 +1,5 @@
-package com.tusharkathuria.dagger_stackoverflow.common
+package com.tusharkathuria.dagger_stackoverflow.common.dependency_injection
 
-import android.view.LayoutInflater
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.FetchQuestionDetailUseCase
