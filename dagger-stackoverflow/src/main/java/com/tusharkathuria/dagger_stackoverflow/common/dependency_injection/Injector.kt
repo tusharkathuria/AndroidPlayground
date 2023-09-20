@@ -7,7 +7,7 @@ import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.FetchQues
 import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.FetchQuestionsUseCase
 import java.lang.reflect.Field
 
-class Injector(private val compositionRoot: PresentationCompositionRoot) {
+class Injector(private val component: PresentationComponent) {
 
     fun inject(client: Any) {
         for (field in getAllFields(client)) {
@@ -42,19 +42,19 @@ class Injector(private val compositionRoot: PresentationCompositionRoot) {
     private fun getServiceForClass(type: Class<*>): Any {
         when (type) {
             DialogsNavigator::class.java -> {
-                return compositionRoot.dialogsNavigator
+                return component.dialogsNavigator()
             }
             ScreensNavigator::class.java -> {
-                return compositionRoot.screensNavigator
+                return component.screensNavigator()
             }
             FetchQuestionsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionsUseCase
+                return component.fetchQuestionsUseCase()
             }
             FetchQuestionDetailUseCase::class.java -> {
-                return compositionRoot.fetchQuestionDetailUseCase
+                return component.fetchQuestionDetailsUseCase()
             }
             UIFactory::class.java -> {
-                return compositionRoot.uiFactory
+                return component.uiFactory()
             }
             else -> {
                 throw Exception("unsupported service type: $type")
