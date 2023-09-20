@@ -2,14 +2,13 @@ package com.tusharkathuria.dagger_stackoverflow
 
 
 import android.app.Application
-import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.AppCompositionRoot
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.app.AppComponent
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.app.AppModule
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.DaggerAppComponent
 
 class MyApplication: Application() {
 
-    lateinit var appCompositionRoot: AppCompositionRoot
-
-    override fun onCreate() {
-        appCompositionRoot = AppCompositionRoot()
-        super.onCreate()
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 }

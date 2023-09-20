@@ -1,4 +1,4 @@
-package com.tusharkathuria.dagger_stackoverflow.common.dependency_injection
+package com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation
 
 import android.view.LayoutInflater
 import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
@@ -7,19 +7,20 @@ import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNav
 import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.FetchQuestionDetailUseCase
 import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.FetchQuestionsUseCase
 import androidx.fragment.app.FragmentManager;
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activity.ActivityComponent
 import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityCompositionRoot: ActivityCompositionRoot) {
+class PresentationModule(private val activityComponent: ActivityComponent) {
     @Provides
-    fun stackoverflowApi(): StackoverflowApi = activityCompositionRoot.stackoverflowApi
+    fun stackoverflowApi(): StackoverflowApi = activityComponent.stackoverflowApi()
     @Provides
-    fun fragmentManager(): FragmentManager = activityCompositionRoot.fragmentManager
+    fun fragmentManager(): FragmentManager = activityComponent.fragmentManager()
     @Provides
-    fun layoutInflater(): LayoutInflater = activityCompositionRoot.layoutInflater
+    fun layoutInflater(): LayoutInflater = activityComponent.layoutInflater()
     @Provides
-    fun screensNavigator() = activityCompositionRoot.screensNavigator
+    fun screensNavigator() = activityComponent.screensNavigator()
     @Provides
     fun uiFactory(layoutInflater: LayoutInflater) = UIFactory(layoutInflater)
     @Provides

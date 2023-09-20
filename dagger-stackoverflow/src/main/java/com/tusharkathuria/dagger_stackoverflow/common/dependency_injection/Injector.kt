@@ -1,5 +1,6 @@
 package com.tusharkathuria.dagger_stackoverflow.common.dependency_injection
 
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation.PresentationComponent
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
