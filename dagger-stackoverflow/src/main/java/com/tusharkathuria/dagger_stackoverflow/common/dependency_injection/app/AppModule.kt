@@ -7,23 +7,21 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class AppModule(private val application: Application) {
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    private val stackoverflowApi by lazy {
-        retrofit.create(StackoverflowApi::class.java)
-    }
+    @AppScope
+    @Provides
+    fun retrofit() = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     @Provides
     fun application(): Application = application
 
+    @AppScope
     @Provides
-    fun stackOverflowApi(): StackoverflowApi = stackoverflowApi
+    fun stackOverflowApi(retrofit: Retrofit): StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 }
