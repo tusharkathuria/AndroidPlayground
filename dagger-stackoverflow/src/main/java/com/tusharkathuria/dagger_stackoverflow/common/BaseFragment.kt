@@ -6,7 +6,9 @@ import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.prese
 
 open class BaseFragment: Fragment() {
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder().presentationModule(PresentationModule((requireActivity() as BaseActivity).activityComponent)).build()
+        DaggerPresentationComponent.builder()
+            .activityComponent((requireActivity() as BaseActivity).activityComponent)
+            .presentationModule(PresentationModule()).build()
     }
     protected val injector get() = presentationComponent
 }

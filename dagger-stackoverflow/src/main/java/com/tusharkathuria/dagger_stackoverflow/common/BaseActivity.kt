@@ -10,10 +10,14 @@ import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.prese
 
 open class BaseActivity: AppCompatActivity() {
     val activityComponent: ActivityComponent by lazy {
-        DaggerActivityComponent.builder().activityModule(ActivityModule(this, (application as MyApplication).appComponent)).build()
+        DaggerActivityComponent.builder()
+            .appComponent((application as MyApplication).appComponent)
+            .activityModule(ActivityModule(this)).build()
     }
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder().presentationModule(PresentationModule(activityComponent)).build()
+        DaggerPresentationComponent.builder()
+            .activityComponent(activityComponent)
+            .presentationModule(PresentationModule()).build()
     }
     protected val injector get() = presentationComponent
 }
