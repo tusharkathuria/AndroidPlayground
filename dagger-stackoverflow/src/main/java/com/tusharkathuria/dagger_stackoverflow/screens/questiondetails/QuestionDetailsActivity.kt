@@ -2,41 +2,28 @@ package com.tusharkathuria.dagger_stackoverflow.screens.questiondetails
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
-import android.widget.TextView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.tusharkathuria.dagger_stackoverflow.Constants
-import com.tusharkathuria.dagger_stackoverflow.MyApplication
-import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseActivity
-import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.Service
-import com.tusharkathuria.dagger_stackoverflow.networking.StackoverflowApi
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
 import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.DialogsNavigator
-import com.tusharkathuria.dagger_stackoverflow.screens.common.dialogs.ServerErrorDialogFragment
-import com.tusharkathuria.dagger_stackoverflow.screens.common.toolbar.MyToolbar
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionId: String
     private lateinit var questionDetailUI: QuestionDetailUI
-    @field:Service private lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var uiFactory: UIFactory
+    @Inject lateinit var fetchQuestionDetailUseCase: FetchQuestionDetailUseCase
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var uiFactory: UIFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)

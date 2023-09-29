@@ -1,13 +1,10 @@
 package com.tusharkathuria.dagger_stackoverflow.screens.questionlist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseFragment
-import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.Service
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
 import com.tusharkathuria.dagger_stackoverflow.screens.common.UIFactory
@@ -17,16 +14,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class QuestionsListFragment : BaseFragment(), QuestionListUI.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var isDataLoaded = false
     private lateinit var questionListUI: QuestionListUI
-    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var uiFactory: UIFactory
+    @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var uiFactory: UIFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)

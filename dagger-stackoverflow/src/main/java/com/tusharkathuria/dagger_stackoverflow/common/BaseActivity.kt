@@ -6,7 +6,6 @@ import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activ
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activity.ActivityModule
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation.DaggerPresentationComponent
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activity.DaggerActivityComponent
-import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.Injector
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation.PresentationModule
 
 open class BaseActivity: AppCompatActivity() {
@@ -16,5 +15,5 @@ open class BaseActivity: AppCompatActivity() {
     private val presentationComponent by lazy {
         DaggerPresentationComponent.builder().presentationModule(PresentationModule(activityComponent)).build()
     }
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }
