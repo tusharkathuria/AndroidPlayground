@@ -52,12 +52,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailUI.Listener {
             try {
                 when (val result = fetchQuestionDetailUseCase.fetch(questionId)) {
                     is FetchQuestionDetailUseCase.Result.Success -> {
-                        questionDetailUI.setQuestionText(
-                            Html.fromHtml(
-                                result.question.body,
-                                Html.FROM_HTML_MODE_LEGACY
-                            )
-                        )
+                        questionDetailUI.setQuestion(result.question)
                     }
 
                     is FetchQuestionDetailUseCase.Result.Failure -> onFetchFailed()
