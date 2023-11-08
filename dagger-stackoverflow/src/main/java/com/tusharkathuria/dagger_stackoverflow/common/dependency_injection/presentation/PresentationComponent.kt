@@ -5,7 +5,7 @@ import com.tusharkathuria.dagger_stackoverflow.screens.questionlist.QuestionsLis
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent(modules = [PresentationModule::class, UseCasesModule::class])
+@Subcomponent()
 interface PresentationComponent {
     fun inject(questionsListFragment: QuestionsListFragment)
     fun inject(questionDetailsActivity: QuestionDetailsActivity)

@@ -6,8 +6,9 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class FetchQuestionDetailUseCase(private val stackoverflowApi: StackoverflowApi) {
+class FetchQuestionDetailUseCase @Inject constructor(private val stackoverflowApi: StackoverflowApi) {
     sealed class Result {
         data class Success(val question: QuestionWithBody): Result()
         object Failure : Result()

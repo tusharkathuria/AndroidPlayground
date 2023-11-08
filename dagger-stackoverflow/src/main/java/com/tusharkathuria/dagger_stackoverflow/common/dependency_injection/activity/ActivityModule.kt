@@ -18,7 +18,4 @@ class ActivityModule(private val activity: AppCompatActivity) {
     fun fragmentManager(): FragmentManager = activity.supportFragmentManager
     @Provides
     fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
-    @ActivityScope
-    @Provides
-    fun screensNavigator(activity: AppCompatActivity): ScreensNavigator = ScreensNavigator(activity)
 }
