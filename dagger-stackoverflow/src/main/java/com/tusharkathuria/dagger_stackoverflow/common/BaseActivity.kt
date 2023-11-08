@@ -5,13 +5,14 @@ import com.tusharkathuria.dagger_stackoverflow.MyApplication
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activity.ActivityComponent
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activity.ActivityModule
 import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation.PresentationModule
+import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.presentation.UseCasesModule
 
 open class BaseActivity: AppCompatActivity() {
     val activityComponent: ActivityComponent by lazy {
         (application as MyApplication).appComponent.newActivityComponent(ActivityModule(this))
     }
     private val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule())
+        activityComponent.newPresentationComponent(PresentationModule(), UseCasesModule())
     }
     protected val injector get() = presentationComponent
 }
