@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.tusharkathuria.dagger_stackoverflow.R
 
-class ServerErrorDialogFragment : DialogFragment() {
+class ServerErrorDialogFragment : BaseDialog() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(activity).let {
