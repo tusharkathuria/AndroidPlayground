@@ -7,7 +7,10 @@ import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activ
 
 open class BaseActivity: AppCompatActivity() {
     val activityComponent: ActivityComponent by lazy {
-        (application as MyApplication).appComponent.newActivityComponent(ActivityModule(this))
+        (application as MyApplication).appComponent.activityComponentBuilder()
+            .activityModule(ActivityModule)
+            .activity(this)
+            .build()
     }
     private val presentationComponent by lazy {
         activityComponent.newPresentationComponent()

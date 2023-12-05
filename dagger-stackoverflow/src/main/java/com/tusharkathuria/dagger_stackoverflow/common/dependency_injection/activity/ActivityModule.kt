@@ -10,12 +10,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ActivityModule(private val activity: AppCompatActivity) {
+object ActivityModule {
+    @Provides
+    fun fragmentManager(activity: AppCompatActivity): FragmentManager =
+        activity.supportFragmentManager
 
     @Provides
-    fun activity(): AppCompatActivity = activity
-    @Provides
-    fun fragmentManager(): FragmentManager = activity.supportFragmentManager
-    @Provides
-    fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
+    fun layoutInflater(activity: AppCompatActivity): LayoutInflater =
+        LayoutInflater.from(activity)
 }
