@@ -6,8 +6,13 @@ import com.tusharkathuria.dagger_stackoverflow.common.dependency_injection.activ
 import com.tusharkathuria.dagger_stackoverflow.screens.questiondetails.QuestionDetailsActivity
 import javax.inject.Inject
 
-interface ScreensNavigator {
-    fun navigateBack()
+@ActivityScope
+class ScreensNavigatorImpl @Inject constructor(private val activity: AppCompatActivity): ScreensNavigator {
+    override fun navigateBack() {
+        activity.onBackPressed()
+    }
 
-    fun navigateToQuestionDetails(questionId: String)
+    override fun navigateToQuestionDetails(questionId: String) {
+        QuestionDetailsActivity.start(activity, questionId)
+    }
 }

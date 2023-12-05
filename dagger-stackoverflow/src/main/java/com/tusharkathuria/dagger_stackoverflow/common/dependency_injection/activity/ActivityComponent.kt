@@ -14,7 +14,6 @@ interface ActivityComponent {
     interface Builder {
         // By default dagger builder binds modules. But in this case we want to bind instance passed so annotation is needed
         @BindsInstance fun activity(activity: AppCompatActivity): Builder
-        fun activityModule(activityModule: ActivityModule): Builder
         fun build(): ActivityComponent
     }
 }
