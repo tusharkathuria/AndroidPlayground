@@ -5,19 +5,17 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toolbar
 import com.tusharkathuria.dagger_stackoverflow.R
 
 
 class MyToolbar : Toolbar {
 
-    interface NavigateUpListener {
-        fun onNavigationUpClicked()
-    }
-
     private var navigateUpListener: () -> Unit = {}
-
+    private var viewModelListener: () -> Unit = {}
     private lateinit var navigateUp: FrameLayout
+    private lateinit var viewmodel: TextView
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -36,10 +34,17 @@ class MyToolbar : Toolbar {
         setContentInsetsRelative(0, 0)
         navigateUp = view.findViewById(R.id.navigate_up)
         navigateUp.setOnClickListener { navigateUpListener.invoke() }
+        viewmodel = view.findViewById(R.id.viewmodel)
+        viewmodel.setOnClickListener { viewModelListener.invoke() }
     }
 
     fun setNavigateUpListener(navigateUpListener: () -> Unit) {
         this.navigateUpListener = navigateUpListener
         navigateUp.visibility = View.VISIBLE
+    }
+
+    fun setViewModelListener(viewModelListener: () -> Unit) {
+        this.viewModelListener = viewModelListener
+        viewmodel.visibility = View.VISIBLE
     }
 }

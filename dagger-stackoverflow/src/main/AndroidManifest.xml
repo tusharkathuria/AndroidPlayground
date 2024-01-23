@@ -23,6 +23,10 @@
         <activity
             android:name=".screens.questiondetails.QuestionDetailsActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".screens.viewmodel.ViewModelActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

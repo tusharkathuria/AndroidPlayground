@@ -82,4 +82,8 @@ class QuestionsListFragment : BaseFragment(), QuestionListUI.Listener {
     override fun onQuestionClickedUIEvent(question: Question) {
         screensNavigator.navigateToQuestionDetails(question.id)
     }
+
+    override fun onViewModelClicked() {
+        screensNavigator.toViewModel()
+    }
 }

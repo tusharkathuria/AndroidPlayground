@@ -12,14 +12,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.questions.Question
 import com.tusharkathuria.dagger_stackoverflow.screens.common.BaseUI
+import com.tusharkathuria.dagger_stackoverflow.screens.common.toolbar.MyToolbar
 
 class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?): BaseUI<QuestionListUI.Listener>(layoutInflater, parent, R.layout.layout_questions_list) {
 
     private var swipeRefresh: SwipeRefreshLayout
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
+    private val toolbar: MyToolbar = findViewById(R.id.toolbar)
 
     init {
+        toolbar.setViewModelListener {
+            for (listener in listeners) {
+                listener.onViewModelClicked()
+            }
+        }
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             listeners.forEach {
@@ -55,6 +62,7 @@ class QuestionListUI(layoutInflater: LayoutInflater, parent: ViewGroup?): BaseUI
     interface Listener {
         fun onRefreshUIEvent()
         fun onQuestionClickedUIEvent(question: Question)
+        fun onViewModelClicked()
     }
 
     class QuestionsAdapter(
