@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.tusharkathuria.dagger_stackoverflow.R
 import com.tusharkathuria.dagger_stackoverflow.common.BaseActivity
 import com.tusharkathuria.dagger_stackoverflow.screens.common.ScreensNavigator
@@ -15,9 +16,10 @@ class ViewModelActivity : BaseActivity() {
 
     @Inject lateinit var screensNavigator: ScreensNavigator
 
-    @Inject lateinit var myViewModel: MyViewModel
+    @Inject lateinit var myViewModelFactory: MyViewModel.Factory
 
     private lateinit var toolbar: MyToolbar
+    private lateinit var myViewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
@@ -25,6 +27,7 @@ class ViewModelActivity : BaseActivity() {
 
         setContentView(R.layout.layout_view_model)
 
+        myViewModel = ViewModelProvider(this, myViewModelFactory)[MyViewModel::class.java]
         toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigateUpListener {
             screensNavigator.navigateBack()
