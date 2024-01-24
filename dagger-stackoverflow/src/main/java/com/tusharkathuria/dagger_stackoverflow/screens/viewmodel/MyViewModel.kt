@@ -30,9 +30,9 @@ class MyViewModel @Inject constructor(
         }
     }
 
-    class Factory @Inject constructor(private val fetchQuestionsUseCaseProvider: Provider<FetchQuestionsUseCase>): ViewModelProvider.Factory {
+    class Factory @Inject constructor(private val myViewModelProvider: Provider<MyViewModel>): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MyViewModel(fetchQuestionsUseCaseProvider.get()) as T
+            return myViewModelProvider.get() as T
         }
     }
 }
